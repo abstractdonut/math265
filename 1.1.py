@@ -1,7 +1,7 @@
 from dirfield import dirfield
 import numpy as np
 
-# Problems 1.1.1 - 1.1.6; 1.1.11 - 1.1.14; 1.1.25-1.1.33 in Boyce & DiPrima
+# Problems 1.1.1 - 1.1.6; 1.1.11 - 1.1.14; 1.1.25(d)-1.1.33 in Boyce & DiPrima
 
 # 1
 yp = lambda t, y: 3 - 2*y
@@ -120,7 +120,7 @@ dirfield(yp, fname="$t + 2y$", hints=['med-res', 'narrow'])
 #   - if y <= 0 when t=0, then y->-inf
 
 
-# 30 (requires fullscreen)
+# 30
 yp = lambda t, y: 3 * np.sin(t) + 1 + y
 dirfield(yp, fname="$3\\sin(t) + 1 + y$", hints=['med-res'])
 #             xmin=0, xmax=10, ymin=-5, ymax=5, xstep=.2, ystep=.2, r=.2)
@@ -129,19 +129,21 @@ dirfield(yp, fname="$3\\sin(t) + 1 + y$", hints=['med-res'])
 #   - if y = -1 when t=0, then y has no limit
 #   - if y < -1 when t=0, then y->-inf
 
-# 31 (requires fullscreen)
+# 31
 yp = lambda t, y: 2 * t - 1 - y ** 2
 dirfield(yp, fname="$2t - 1 - y^2$",
              xmin=-1, xmax=10, ymin=-7.5, ymax=7.5, xstep=.2, ystep=.2, r=.2)
-# the behavior of y as t->inf can't be understood from only the graph
+# Let a be a critical y value for which the behavior of the DE changes at t=0.
+#	- When y(0) > a, y→inf as t→inf
+#	- When y(0) < a, y→-inf as t→inf
 
-# 32 (requires fullscreen, the hline is used to identify the point (0, -1))
+# 32
 yp = lambda t, y: -(2*t + y) / (2 * y)
 dirfield(yp, fname="$-\\frac{2t + y}{2y}$", hints=['med-res'])
 # y -> 0 as t -> inf.
 
 
-# 33 (requires fullscreen)
+# 33
 yp = lambda t, y: (1/6) * y ** 3 - y - (1/3) * t ** 2
 dirfield(yp, fname="$\\frac{1}{6}y^3 - y - \\frac{1}{3}t^2$",
              xmin=-5, xmax=5, ymin=-3, ymax=7, xstep=.2, ystep=.2, r=.2)
