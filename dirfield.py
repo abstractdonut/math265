@@ -18,9 +18,17 @@ def maximize():
 # solutions is a list of ordered pairs of the form (f, color), where f is the
 # function to be plotted and color is the color of the solution.
 def plot_solutions(solutions, xmin, xmax):
-    x = np.linspace(xmin, xmax, num=400)
+    x = np.linspace(xmin, xmax, num=800)
     for f, color in solutions:
         plt.plot(x, f(x), color)
+
+# points is a list of ordered pairs of the form (x, y).
+def plot_points(points):
+    if len(points) > 0:
+        x, y = zip(*points)
+        plt.scatter(x, y, s=50, c="orange", edgecolor="black", zorder=100)   # zorder=100 necessary?
+        for point in points:
+            plt.text(point[0]+.1, point[1]+.3, "(%.4f, %.4f)" % (point[0], point[1]), backgroundcolor="white", fontsize=12, zorder=1)
 
 # dirfield is an alteration of a solution posted on a matplotlib forum.
 # http://matplotlib.1069221.n5.nabble.com/Need-help-with-direction-field-plot-td24886.html
@@ -32,7 +40,8 @@ def plot_solutions(solutions, xmin, xmax):
 # function to be plotted and color is the color of the solution.
 # hlines are a list of y values for placement of horizontal red lines.
 # hints may be one of 'hi-res', 'Q1'. 
-def dirfield(f, fname="", hlines=[], hints=[], solutions=[],
+def dirfield(f, fname="", solutions=[], points=[],
+             hlines=[], hlinecolor="red", hlinestyle="-", hints=[], 
              xmin=-10, xmax=10, ymin=-10,
              ymax=10, xstep=1, ystep=1, r=1,
              yvar='y', tvar='t'):
@@ -52,9 +61,15 @@ def dirfield(f, fname="", hlines=[], hints=[], solutions=[],
     if 'x-positive' in hints:
         xmin = -1
         xmax = 19
+    if 'x-negative' in hints:
+        xmin = -19
+        xmax = 1
     if 'y-positive' in hints:
         ymin = -1
         ymax = 19
+    if 'y-negative' in hints:
+        ymin = -19
+        ymax = 1
     if 'broad' in hints:
         xmin *= 5
         xmax *= 5
@@ -73,10 +88,13 @@ def dirfield(f, fname="", hlines=[], hints=[], solutions=[],
         r *= .25
     
     # coordinate initialization :
-    x      = np.arange(xmin, xmax, xstep)
     if 'x-positive' in hints:
-        x  = np.arange(0, xmax, xstep)
-    y      = np.arange(ymin, ymax, ystep)
+        x = np.arange(0, xmax, xstep)
+    elif 'x-negative' in hints:
+        x = np.arange(xmin, 0, xstep)
+    else:
+        x = np.arange(xmin, xmax, xstep)  
+    y     = np.arange(ymin, ymax, ystep)
     x, y = np.meshgrid(x, y)
     
     # obtain aspect ration of slope field :
@@ -112,7 +130,7 @@ def dirfield(f, fname="", hlines=[], hints=[], solutions=[],
                        headaxislength=0.0,
                        pivot='middle')                      # plot the dir. field
     for line in hlines:
-        plt.axhline(y=line, c='r')                          # equilibrium isocline
+        plt.axhline(y=line, c=hlinecolor, linestyle=hlinestyle)                          # equilibrium isocline
     
     plt.ylim([ymin, ymax])                                      # plotting y-axis limits
     plt.xlim([xmin, xmax])                                      # plotting x-axis limits
@@ -120,6 +138,7 @@ def dirfield(f, fname="", hlines=[], hints=[], solutions=[],
         plt.title("Direction field for $\\frac{d%s}{d%s}$ = " % (yvar, tvar) + fname)  # title
     plt.xlabel("$%s$" % tvar)                                          # x-axis label
     plt.ylabel("$%s$" % yvar)                                          # y-axis label
+    plot_points(points)
     plot_solutions(solutions, xmin, xmax)
     maximize()
     plt.show()

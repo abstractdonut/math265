@@ -1,0 +1,143 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from dirfield import dirfield
+
+# 1 (a)
+sols = []
+def sol(c):
+    return lambda t: c * np.exp(-t) + 5
+for c in range(-3, 4):
+    sols.append( (sol(c ** 3), "red") )
+
+yp = lambda t, y: -y + 5
+dirfield(yp, fname="$5 - y$", hints=['hi-res'], solutions=sols)
+
+
+# 1 (b)
+sols = []
+def sol(c):
+    return lambda t: c * np.exp(-2*t) + 5/2
+for c in range(-3, 4):
+    sols.append( (sol(c ** 3), "red") )
+
+yp = lambda t, y: 5 - 2 * y
+dirfield(yp, fname="$5 - 2y$", hints=['hi-res'], solutions=sols)
+
+
+# 1 (c)
+sols = []
+def sol(c):
+    return lambda t: c * np.exp(-2*t) + 5
+for c in range(-3, 4):
+    sols.append( (sol(c ** 3), "red") )
+
+yp = lambda t, y: 10 - 2*y
+dirfield(yp, fname="$10 - 2y$", hints=['hi-res'], solutions=sols)
+
+
+# 2 (a)
+sols = []
+def sol(c):
+    return lambda t: c * np.exp(t) + 5
+for c in range(-3, 4):
+    sols.append( (sol(c ** 3), "red") )
+
+yp = lambda t, y: y - 5
+dirfield(yp, fname="$y - 5$", hints=['hi-res'], solutions=sols)
+
+
+# 2 (b)
+sols = []
+def sol(c):
+    return lambda t: c * np.exp(2*t) + 5/2
+for c in range(-3, 4):
+    sols.append( (sol(c ** 3), "red") )
+
+yp = lambda t, y: 2*y - 5
+dirfield(yp, fname="$2y - 5$", hints=['hi-res'], solutions=sols)
+
+# 2 (c)
+sols = []
+def sol(c):
+    return lambda t: c * np.exp(2*t) + 5
+for c in range(-3, 4):
+    sols.append( (sol(c ** 3), "red") )
+
+yp = lambda t, y: y - 10
+dirfield(yp, fname="$y - 10$", hints=['hi-res'], solutions=sols)
+
+
+# 11 (c)
+t_i = -10
+t_f = 10
+ymin = -60
+ymax = 60
+t = np.linspace(t_i, t_f, num=400)
+v_linear = 49 * (1 - np.exp(-t / 5))
+v_quadratic = 49 * np.tanh(t / 5)
+a_line = np.full(t.shape, 49)
+plt.xlim(t_i, t_f)
+plt.ylim(ymin, ymax)
+plt.axhline(c="black")
+plt.axvline(c="black") 
+plt.plot(t, v_linear, "blue", label="linear drag force")
+plt.plot(t, v_quadratic, "red", label="quadratic drag force")
+plt.plot(t, a_line, "k--", label="terminal velocity")
+plt.xlabel("Time (s)")
+plt.ylabel("Velocity (m/s)")
+plt.legend()
+plt.show()
+
+
+# 18 f
+t_i = 0
+t_m = 8760
+t_f = 8760 * 4
+xmin = -1000
+xmax = 8760 * 4
+ymin = -1000
+ymax = 11000
+t1 = np.linspace(t_i, t_m, num=100)
+t2 = np.linspace(t_m, t_f, num=300)
+t = np.linspace(t_i, t_f, num=400)
+Q1 = 10000 - 10000 * np.exp(-3*t1/10000)
+Q2 = 9277.77 * np.exp(-3*(t2 - 8760)/10000)
+a_line = np.full(t.shape, 10000)
+plt.xlim(xmin, xmax)
+plt.ylim(ymin, ymax)
+plt.axhline(c="black")
+plt.axvline(c="black") 
+plt.plot(t1, Q1, "blue", label="Source of chemical is present")
+plt.plot(t2, Q2, "red", label="Source of chemical has been removed")
+plt.plot(t, a_line, "k--", label="Stable solution when source is present")
+plt.xlabel("Time (h)")
+plt.ylabel("Quantity of chemical pollutant (g)")
+plt.legend()
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

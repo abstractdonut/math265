@@ -1,0 +1,72 @@
+from dirfield import dirfield
+import numpy as np
+
+
+# 9 (b)
+y = lambda x: -1 / (3*x - 3*x**2 + 6)
+yp = lambda x, y: (1 - 2*x) * y**2
+dirfield(yp, fname="$(1 - 2x)y^2$", hints=['med-res', 'narrow'],
+             solutions=[(y, "red")], tvar='x')
+
+
+# 11 (b)
+y = lambda x: (-1 - 2*np.exp(x)*(x - 1)) ** (1/2)
+yp = lambda x, y: - x * np.exp(x) / y
+dirfield(yp, fname="$\\frac{-xe^x}{y}$", hints=['med-res', 'narrow'],
+             solutions=[(y, "red")], tvar='x')
+
+# 13 (b)
+y = lambda x: (-1 / (2 * ((x ** 2 + 1)**(1/2) - 3/2)))**(1/2)
+yp = lambda x, y: x*y**3 * (1 + x**2)**(-1/2)
+dirfield(yp, fname="$\\frac{xy^3}{\\sqrt{1+x^2}}$",
+             hints=['med-res', 'narrow', 'y-positive'],
+             solutions=[(y, "red")], tvar='x')
+
+
+# 15 (b)
+y = lambda x: - np.sqrt(x**3 - np.exp(x) + 13/4) + 5/2
+yp = lambda x, y: (3*x**2 - np.exp(x)) / (2*y - 5)
+dirfield(yp, fname="$\\frac{3x^2 - e^x}{2y - 5}$", hints=['med-res'],
+             solutions=[(y, "red")], tvar='x')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
