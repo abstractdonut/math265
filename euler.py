@@ -8,8 +8,9 @@ import numpy as np
 def euler(yp, p0, dt, tf):
     t0, y0 = p0
     n = (tf - t0 + dt) / dt
-    t = list(np.linspace(t0, tf, n))
-    y = [y0]
-    for i in range(0, len(t)):
-        y.append(y[i] + yp(t[i], y[i]) * dt)
-    return (t, y)
+    T = list(np.linspace(t0, tf, n))
+    Y = [y0]
+    for i in range(0, len(T) - 1):
+        Y.append(Y[i] + yp(T[i], Y[i]) * dt)
+    YP = [yp(t, y) for (t, y) in zip(T, Y)]
+    return (T, Y, YP)
