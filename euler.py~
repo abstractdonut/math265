@@ -12,5 +12,5 @@ def euler(yp, p0, dt, tf):
     Y = [y0]
     for i in range(0, len(T) - 1):
         Y.append(Y[i] + yp(T[i], Y[i]) * dt)
-    YP = [yp(t, y) for (t, y) in (T, Y)]
+    YP = [yp(t, y) for (t, y) in zip(T, Y)]
     return (T, Y, YP)

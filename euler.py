@@ -5,7 +5,7 @@ import numpy as np
 # p0 is the initial condition y(p0[0]) = p0[1]
 # dt is the change in t
 # tf is the final value of t in the table
-def euler(yp, p0, dt, tf):
+def euler(yp, p0, tf, dt):
     t0, y0 = p0
     n = (tf - t0 + dt) / dt
     T = list(np.linspace(t0, tf, n))
